@@ -23,6 +23,20 @@
 			"quoteStyle": "double"
 		}
 	},
+	"overrides": [
+		{
+			"includes": [
+				"package.json",
+				"static/manifest.json",
+				".release-please-manifest.json"
+			],
+			"json": {
+				"formatter": {
+					"expand": "always"
+				}
+			}
+		}
+	],
 	"assist": {
 		"enabled": true,
 		"actions": {
