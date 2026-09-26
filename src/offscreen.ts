@@ -1,6 +1,7 @@
 import { DeepgramEngine } from "./offscreen/deepgram-engine";
 import type { CaptionEngine, Emit } from "./offscreen/engine";
 import { LocalEngine } from "./offscreen/local-engine";
+import { NemotronEngine } from "./offscreen/nemotron-engine";
 import {
 	type BackgroundMessage,
 	CAPTION_PORT,
@@ -40,8 +41,17 @@ chrome.runtime.onConnect.addListener((port) => {
 		engine?.stop();
 		if (message.config.engine === "deepgram") {
 			engine = new DeepgramEngine(message.config, emit);
+		} else if (
+			message.config.model === "nemotron" ||
+			message.config.model === "nemotron-multilingual"
+		) {
+			engine = new NemotronEngine(
+				message.config.model,
+				message.config.language,
+				emit,
+			);
 		} else {
-			engine = new LocalEngine(message.config, emit);
+			engine = new LocalEngine(message.config.model, emit);
 		}
 	});
 

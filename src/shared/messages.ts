@@ -1,11 +1,11 @@
-import type { DeepgramModel, LocalModel } from "./settings";
+import type { CaptionLanguage, DeepgramModel, LocalModel } from "./settings";
 
 export const CAPTION_PORT = "captions";
 /** Audio sent to the transcription engines is 16 kHz mono signed 16-bit PCM. */
 export const SAMPLE_RATE = 16000;
 
 export type EngineConfig =
-	| { engine: "local"; model: LocalModel }
+	| { engine: "local"; model: LocalModel; language: CaptionLanguage }
 	| { engine: "deepgram"; apiKey: string; model: DeepgramModel };
 
 /** Content script -> offscreen document, over the `captions` port. */

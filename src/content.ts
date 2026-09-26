@@ -51,7 +51,11 @@ function engineConfig(): EngineConfig {
 			model: settings.deepgramModel,
 		};
 	}
-	return { engine: "local", model: settings.localModel };
+	return {
+		engine: "local",
+		model: settings.localModel,
+		language: settings.captionLanguage,
+	};
 }
 
 function statusText(): string {
@@ -194,13 +198,25 @@ async function main() {
 		},
 	);
 
-	document.addEventListener("keydown", (event) => {
-		if (event.key !== "c" || event.ctrlKey || event.metaKey || event.altKey) {
-			return;
-		}
-		if (isTypingTarget(event.target) || !player) return;
-		toggle();
-	});
+	// Twitch's native captions own plain "c", so ours is Shift+C, caught before Twitch sees it.
+	document.addEventListener(
+		"keydown",
+		(event) => {
+			if (
+				event.key.toLowerCase() !== "c" ||
+				!event.shiftKey ||
+				event.ctrlKey ||
+				event.metaKey ||
+				event.altKey
+			) {
+				return;
+			}
+			if (isTypingTarget(event.target) || !player) return;
+			event.stopPropagation();
+			toggle();
+		},
+		true,
+	);
 
 	syncPlayer();
 	window.setInterval(syncPlayer, PLAYER_POLL_MS);

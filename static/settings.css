@@ -181,7 +181,9 @@ kbd {
 }
 
 form:not([data-engine="local"]) [data-engine="local"],
-form:not([data-engine="deepgram"]) [data-engine="deepgram"] {
+form:not([data-engine="deepgram"]) [data-engine="deepgram"],
+form:not([data-model="nemotron-multilingual"])
+	[data-model="nemotron-multilingual"] {
 	display: none;
 }
 

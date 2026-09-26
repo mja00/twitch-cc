@@ -50,7 +50,7 @@
 				</label>
 				<p class="hint">
 					Toggle captions with the CC button in the player or press
-					<kbd>c</kbd>.
+					<kbd>Shift</kbd>+<kbd>C</kbd>.
 				</p>
 			</fieldset>
 
@@ -69,14 +69,46 @@
 						<span>Model</span>
 						<select name="localModel">
 							<option value="cohere">Cohere Transcribe (most accurate)</option>
+							<option value="nemotron">Nemotron Streaming (live, word by word)</option>
+							<option value="nemotron-multilingual">Nemotron 3.5 Streaming (multilingual)</option>
 							<option value="base">Moonshine Base (lighter)</option>
 							<option value="tiny">Moonshine Tiny (fastest)</option>
 						</select>
 					</label>
+					<label class="row" data-model="nemotron-multilingual">
+						<span>Language</span>
+						<select name="captionLanguage">
+							<option value="auto">Detect automatically</option>
+							<option value="en-US">English (US)</option>
+							<option value="en-GB">English (UK)</option>
+							<option value="es-US">Spanish (Latin America)</option>
+							<option value="es-ES">Spanish (Spain)</option>
+							<option value="fr-FR">French (France)</option>
+							<option value="fr-CA">French (Canada)</option>
+							<option value="it-IT">Italian</option>
+							<option value="pt-BR">Portuguese (Brazil)</option>
+							<option value="pt-PT">Portuguese (Portugal)</option>
+							<option value="nl-NL">Dutch</option>
+							<option value="de-DE">German</option>
+							<option value="tr-TR">Turkish</option>
+							<option value="ru-RU">Russian</option>
+							<option value="ar-AR">Arabic</option>
+							<option value="hi-IN">Hindi</option>
+							<option value="ja-JP">Japanese</option>
+							<option value="ko-KR">Korean</option>
+							<option value="vi-VN">Vietnamese</option>
+							<option value="uk-UA">Ukrainian</option>
+						</select>
+					</label>
+					<p class="hint" data-model="nemotron-multilingual">
+						Pick the streamer's language when you know it; detection can stumble
+						at the start of a sentence.
+					</p>
 					<p class="hint">
 						Runs privately on your GPU. The model downloads once and is cached:
-						~1.5&nbsp;GB Cohere (needs a recent GPU), ~155&nbsp;MB Moonshine
-						Base, ~80&nbsp;MB Moonshine Tiny.
+						~1.5&nbsp;GB Cohere, ~715&nbsp;MB Nemotron, ~780&nbsp;MB Nemotron 3.5
+						(these need a recent GPU), ~155&nbsp;MB Moonshine Base, ~80&nbsp;MB
+						Moonshine Tiny.
 					</p>
 				</div>
 

@@ -1,5 +1,31 @@
 export type Engine = "local" | "deepgram";
-export type LocalModel = "cohere" | "base" | "tiny";
+/** Models run through Transformers.js pipelines with VAD segmentation. */
+export type TransformersModel = "cohere" | "base" | "tiny";
+/** Cache-aware streaming RNNT models run directly on ONNX Runtime Web. */
+export type NemotronModel = "nemotron" | "nemotron-multilingual";
+export type LocalModel = TransformersModel | NemotronModel;
+/** Transcription-ready locales of Nemotron 3.5, plus automatic detection. */
+export type CaptionLanguage =
+	| "auto"
+	| "en-US"
+	| "en-GB"
+	| "es-US"
+	| "es-ES"
+	| "fr-FR"
+	| "fr-CA"
+	| "it-IT"
+	| "pt-BR"
+	| "pt-PT"
+	| "nl-NL"
+	| "de-DE"
+	| "tr-TR"
+	| "ru-RU"
+	| "ar-AR"
+	| "hi-IN"
+	| "ja-JP"
+	| "ko-KR"
+	| "vi-VN"
+	| "uk-UA";
 export type DeepgramModel = "nova-3" | "nova-2";
 export type FontFamily =
 	| "proportional-sans"
@@ -20,6 +46,8 @@ export interface Settings {
 	autoEnable: boolean;
 	engine: Engine;
 	localModel: LocalModel;
+	/** Only used by the multilingual model. */
+	captionLanguage: CaptionLanguage;
 	deepgramApiKey: string;
 	deepgramModel: DeepgramModel;
 	fontFamily: FontFamily;
@@ -42,6 +70,7 @@ export const DEFAULT_SETTINGS: Settings = {
 	autoEnable: false,
 	engine: "local",
 	localModel: "cohere",
+	captionLanguage: "auto",
 	deepgramApiKey: "",
 	deepgramModel: "nova-3",
 	fontFamily: "proportional-sans",
@@ -60,6 +89,7 @@ export const DEFAULT_SETTINGS: Settings = {
 export const ENGINE_KEYS: readonly (keyof Settings)[] = [
 	"engine",
 	"localModel",
+	"captionLanguage",
 	"deepgramApiKey",
 	"deepgramModel",
 ];

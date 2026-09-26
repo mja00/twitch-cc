@@ -55,6 +55,7 @@ function render(settings: Settings) {
 		output.value = `${settings[key]}${output.dataset.unit ?? ""}`;
 	}
 	form.dataset.engine = settings.engine;
+	form.dataset.model = settings.localModel;
 	applyCaptionStyle(preview, settings);
 }
 

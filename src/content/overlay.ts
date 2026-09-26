@@ -76,7 +76,13 @@ export class CaptionOverlay {
 	}
 
 	private render() {
-		const content = [...this.finals, this.interim].filter(Boolean).join(" ");
+		let content = "";
+		for (const part of [...this.finals, this.interim]) {
+			if (!part) continue;
+			// Streaming models can emit a comma or period after the line it belongs to has closed.
+			const attaches = content === "" || /^[,.!?;:…、。，！？]/.test(part);
+			content += attaches ? part : ` ${part}`;
+		}
 		this.cue.textContent = content;
 		this.text.hidden = content.length === 0;
 	}

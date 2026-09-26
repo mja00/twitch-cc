@@ -30,7 +30,7 @@ export function ensurePlayerButton(
 		button.classList.add("tcc-button");
 		button.removeAttribute("data-a-target");
 		button.removeAttribute("aria-haspopup");
-		button.setAttribute("aria-label", "Live captions (c)");
+		button.setAttribute("aria-label", "Live captions (Shift+C)");
 		button.title = "Live captions";
 		svg.setAttribute("viewBox", "0 0 24 24");
 		svg.replaceChildren();

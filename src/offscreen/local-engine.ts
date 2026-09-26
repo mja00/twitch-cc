@@ -6,8 +6,8 @@ import {
 	pipeline,
 	Tensor,
 } from "@huggingface/transformers";
-import { type EngineConfig, SAMPLE_RATE } from "../shared/messages";
-import type { LocalModel } from "../shared/settings";
+import { SAMPLE_RATE } from "../shared/messages";
+import type { TransformersModel } from "../shared/settings";
 import type { CaptionEngine, Emit } from "./engine";
 import { cleanTranscript } from "./transcript-cleanup";
 
@@ -52,7 +52,7 @@ interface ModelSpec {
 	generation: Record<string, unknown>;
 }
 
-const MODEL_SPECS: Record<LocalModel, ModelSpec> = {
+const MODEL_SPECS: Record<TransformersModel, ModelSpec> = {
 	cohere: {
 		id: "onnx-community/cohere-transcribe-03-2026-ONNX",
 		webgpu: { encoder_model: "q4f16", decoder_model_merged: "q4f16" },
@@ -97,7 +97,7 @@ type ProgressListener = (progress: number) => void;
 let vadPromise: Promise<PreTrainedModel> | null = null;
 /** Never disposed: releasing ONNX sessions while another model loads invalidated live sessions. Idle offscreen close frees them. */
 const asrLoads = new Map<
-	LocalModel,
+	TransformersModel,
 	Promise<AutomaticSpeechRecognitionPipeline>
 >();
 const progressListeners = new Set<ProgressListener>();
@@ -158,7 +158,7 @@ async function createAsr(
 }
 
 function loadAsr(
-	model: LocalModel,
+	model: TransformersModel,
 ): Promise<AutomaticSpeechRecognitionPipeline> {
 	const cached = asrLoads.get(model);
 	if (cached) return cached;
@@ -243,17 +243,17 @@ export class LocalEngine implements CaptionEngine {
 	};
 
 	constructor(
-		config: Extract<EngineConfig, { engine: "local" }>,
+		model: TransformersModel,
 		private readonly emit: Emit,
 	) {
-		this.spec = MODEL_SPECS[config.model];
+		this.spec = MODEL_SPECS[model];
 		this.emit({
 			type: "status",
 			state: "loading",
 			detail: "Loading caption model…",
 		});
 		progressListeners.add(this.onProgress);
-		Promise.all([loadAsr(config.model), loadVad()])
+		Promise.all([loadAsr(model), loadVad()])
 			.then(([asr, vad]) => {
 				if (this.stopped) return;
 				this.models = { asr, vad };
