@@ -25,9 +25,18 @@ Models download from Hugging Face on first use and are cached by the browser. On
 
 - A Chromium-based browser, version 124 or newer.
 - For Cohere Transcribe: a GPU exposed through WebGPU with the `shader-f16` feature (most GPUs from the last several years).
-- [Bun](https://bun.sh) to build from source.
+- [Bun](https://bun.sh), only if you build from source.
 
 ## Install
+
+1. Download `twitch-live-captions-vX.Y.Z.zip` from the [latest release](https://github.com/mja00/twitch-cc/releases/latest) and unzip it.
+2. Open `chrome://extensions` and turn on **Developer mode**.
+3. Click **Load unpacked** and select the unzipped folder.
+4. Open a Twitch stream and click the **CC** button in the player, or press <kbd>c</kbd>.
+
+To update, unzip the new release over the same folder, click the reload icon on the extension card, and refresh the Twitch tab.
+
+### From source
 
 ```sh
 git clone https://github.com/mja00/twitch-cc.git
@@ -36,13 +45,7 @@ bun install
 bun run build
 ```
 
-Then load it in your browser:
-
-1. Open `chrome://extensions` and turn on **Developer mode**.
-2. Click **Load unpacked** and select the `dist/` folder.
-3. Open a Twitch stream and click the **CC** button in the player, or press <kbd>c</kbd>.
-
-After pulling changes, run `bun run build` again, click the reload icon on the extension card, and refresh the Twitch tab.
+Then load the `dist/` folder with **Load unpacked** as above.
 
 ## Usage
 
@@ -74,6 +77,10 @@ bun test           # unit tests
 | Settings | `src/settings.ts`, `static/settings.html` | Popup and options page backed by `chrome.storage.local`. |
 
 The on-device engines are not natively streaming. Speech is segmented with Silero VAD, and the growing segment is re-transcribed for interim captions until a pause finalizes it.
+
+### Releases
+
+Releases are automated with [release-please](https://github.com/googleapis/release-please) and rely on [Conventional Commits](https://www.conventionalcommits.org/). Each push to `main` updates a release PR that bumps the version in `package.json` and `static/manifest.json` and updates `CHANGELOG.md`. Merging that PR tags the release, and CI attaches the built extension zip.
 
 ## License
 
