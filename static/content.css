@@ -1,0 +1,105 @@
+.tcc-overlay {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	container-type: size;
+	overflow: hidden;
+}
+
+.tcc-text[hidden],
+.tcc-status[hidden] {
+	display: none;
+}
+
+.tcc-window {
+	position: absolute;
+	left: 50%;
+	bottom: 6%;
+	transform: translateX(-50%);
+	width: max-content;
+	max-width: 86%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.4em;
+	transition:
+		bottom 0.2s ease,
+		top 0.2s ease;
+	font-family: var(--tcc-font, sans-serif);
+	font-size: calc(var(--tcc-scale, 1) * clamp(12px, 4.2cqh, 64px));
+	text-align: center;
+}
+
+.tcc-overlay[data-position="top"] .tcc-window {
+	top: 6%;
+	bottom: auto;
+}
+
+/* Lift captions above Twitch's control bar while it is visible. */
+.tcc-host:has(.player-controls[data-a-visible="true"])
+	.tcc-overlay[data-position="bottom"]
+	.tcc-window {
+	bottom: calc(6% + 56px);
+}
+
+.tcc-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	max-height: calc(var(--tcc-lines, 2) * 1.4em);
+	overflow: hidden;
+	line-height: 1.4;
+	color: var(--tcc-color, #fff);
+}
+
+.tcc-cue {
+	background: var(--tcc-bg, rgba(8, 8, 8, 0.75));
+	padding: 0.06em 0.3em;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+.tcc-status {
+	font-size: max(11px, 0.55em);
+	line-height: 1.3;
+	padding: 0.35em 0.7em;
+	border-radius: 4px;
+	background: rgba(8, 8, 8, 0.75);
+	color: #efeff1;
+}
+
+.tcc-status[data-kind="error"] {
+	color: #ff8f8f;
+}
+
+.tcc-overlay[data-small-caps="true"] .tcc-text {
+	font-variant: small-caps;
+}
+
+.tcc-overlay[data-edge="drop-shadow"] .tcc-text {
+	text-shadow:
+		0.06em 0.06em 0.12em rgba(0, 0, 0, 0.9),
+		0 0 0.2em rgba(0, 0, 0, 0.5);
+}
+
+.tcc-overlay[data-edge="raised"] .tcc-text {
+	text-shadow:
+		0.04em 0.04em 0 rgba(0, 0, 0, 0.9),
+		0.08em 0.08em 0 rgba(0, 0, 0, 0.6);
+}
+
+.tcc-overlay[data-edge="depressed"] .tcc-text {
+	text-shadow:
+		-0.04em -0.04em 0 rgba(0, 0, 0, 0.9),
+		0.04em 0.04em 0 rgba(255, 255, 255, 0.35);
+}
+
+.tcc-overlay[data-edge="outline"] .tcc-text {
+	-webkit-text-stroke: 0.1em #000;
+	paint-order: stroke fill;
+}
+
+.tcc-button[aria-pressed="true"] svg {
+	color: #bf94ff;
+	fill: #bf94ff;
+}

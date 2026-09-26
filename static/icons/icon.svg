@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+	<title>Twitch Live Captions</title>
+	<rect x="4" y="16" width="120" height="96" rx="22" fill="#9146FF"/>
+	<path d="M56 49 A17 17 0 1 0 56 79" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+	<path d="M96 49 A17 17 0 1 0 96 79" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,38 @@
+{
+	"name": "twitch-cc",
+	"version": "0.1.0",
+	"description": "Realtime English captions for any Twitch stream, powered by on-device speech recognition or Deepgram.",
+	"license": "MIT",
+	"author": "mja00 <me@mja00.dev>",
+	"homepage": "https://github.com/mja00/twitch-cc#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mja00/twitch-cc.git"
+	},
+	"bugs": "https://github.com/mja00/twitch-cc/issues",
+	"keywords": [
+		"twitch",
+		"captions",
+		"subtitles",
+		"speech-to-text",
+		"chrome-extension",
+		"webgpu"
+	],
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"build": "bun scripts/build.ts",
+		"lint": "biome check --write .",
+		"typecheck": "tsc",
+		"test": "bun test"
+	},
+	"dependencies": {
+		"@huggingface/transformers": "4.3.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.5.14",
+		"@types/bun": "latest",
+		"@types/chrome": "^0.3.0",
+		"typescript": "^7.0.2"
+	}
+}

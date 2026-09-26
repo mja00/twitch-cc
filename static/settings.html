@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Twitch Live Captions settings</title>
+		<link rel="stylesheet" href="content.css" />
+		<link rel="stylesheet" href="settings.css" />
+		<script type="module" src="settings.js"></script>
+	</head>
+	<body>
+		<header>
+			<img src="icons/icon-32.png" alt="" width="24" height="24" />
+			<h1>Live Captions</h1>
+		</header>
+
+		<section class="tab-card" id="tab-card">
+			<div>
+				<div class="tab-title">This tab</div>
+				<div class="tab-status" id="tab-status">Checking…</div>
+			</div>
+			<label class="switch">
+				<input type="checkbox" id="tab-toggle" disabled />
+				<span aria-hidden="true"></span>
+				<span class="visually-hidden">Captions on this tab</span>
+			</label>
+		</section>
+
+		<div class="preview" aria-hidden="true">
+			<div class="tcc-overlay" id="preview-overlay">
+				<div class="tcc-window">
+					<div class="tcc-text">
+						<div>
+							<span class="tcc-cue"
+								>GG everyone, that was a close one. Let's queue up another
+								round.</span
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<form id="settings" autocomplete="off">
+			<fieldset>
+				<legend>General</legend>
+				<label class="row">
+					<span>Turn on automatically for streams</span>
+					<input type="checkbox" name="autoEnable" />
+				</label>
+				<p class="hint">
+					Toggle captions with the CC button in the player or press
+					<kbd>c</kbd>.
+				</p>
+			</fieldset>
+
+			<fieldset>
+				<legend>Transcription</legend>
+				<label class="row">
+					<span>Engine</span>
+					<select name="engine">
+						<option value="local">On-device</option>
+						<option value="deepgram">Deepgram (cloud)</option>
+					</select>
+				</label>
+
+				<div data-engine="local">
+					<label class="row">
+						<span>Model</span>
+						<select name="localModel">
+							<option value="cohere">Cohere Transcribe (most accurate)</option>
+							<option value="base">Moonshine Base (lighter)</option>
+							<option value="tiny">Moonshine Tiny (fastest)</option>
+						</select>
+					</label>
+					<p class="hint">
+						Runs privately on your GPU. The model downloads once and is cached:
+						~1.5&nbsp;GB Cohere (needs a recent GPU), ~155&nbsp;MB Moonshine
+						Base, ~80&nbsp;MB Moonshine Tiny.
+					</p>
+				</div>
+
+				<div data-engine="deepgram">
+					<label class="row">
+						<span>Model</span>
+						<select name="deepgramModel">
+							<option value="nova-3">Nova-3</option>
+							<option value="nova-2">Nova-2</option>
+						</select>
+					</label>
+					<label class="stack">
+						<span>API key</span>
+						<input
+							type="password"
+							name="deepgramApiKey"
+							placeholder="Paste your Deepgram API key"
+							spellcheck="false"
+						/>
+					</label>
+					<p class="hint">
+						Lowest latency and best accuracy. Audio is streamed to Deepgram
+						and billed to your account.
+					</p>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend>Appearance</legend>
+				<label class="row">
+					<span>Font</span>
+					<select name="fontFamily">
+						<option value="proportional-sans">Proportional sans-serif</option>
+						<option value="monospace-sans">Monospaced sans-serif</option>
+						<option value="proportional-serif">Proportional serif</option>
+						<option value="monospace-serif">Monospaced serif</option>
+						<option value="casual">Casual</option>
+						<option value="small-caps">Small capitals</option>
+					</select>
+				</label>
+				<label class="row">
+					<span>Size <output data-for="fontSize" data-unit="%"></output></span>
+					<input type="range" name="fontSize" min="50" max="300" step="25" />
+				</label>
+				<label class="row">
+					<span>Text color</span>
+					<input type="color" name="textColor" />
+				</label>
+				<label class="row">
+					<span
+						>Text opacity <output data-for="textOpacity" data-unit="%"></output
+					></span>
+					<input type="range" name="textOpacity" min="25" max="100" step="5" />
+				</label>
+				<label class="row">
+					<span>Background color</span>
+					<input type="color" name="backgroundColor" />
+				</label>
+				<label class="row">
+					<span
+						>Background opacity
+						<output data-for="backgroundOpacity" data-unit="%"></output
+					></span>
+					<input
+						type="range"
+						name="backgroundOpacity"
+						min="0"
+						max="100"
+						step="5"
+					/>
+				</label>
+				<label class="row">
+					<span>Character edge</span>
+					<select name="edgeStyle">
+						<option value="none">None</option>
+						<option value="drop-shadow">Drop shadow</option>
+						<option value="raised">Raised</option>
+						<option value="depressed">Depressed</option>
+						<option value="outline">Outline</option>
+					</select>
+				</label>
+				<label class="row">
+					<span>Position</span>
+					<select name="position">
+						<option value="bottom">Bottom</option>
+						<option value="top">Top</option>
+					</select>
+				</label>
+				<label class="row">
+					<span>Lines <output data-for="maxLines"></output></span>
+					<input type="range" name="maxLines" min="1" max="4" step="1" />
+				</label>
+				<label class="row">
+					<span
+						>Clear after silence
+						<output data-for="hideAfter" data-unit="s"></output
+					></span>
+					<input type="range" name="hideAfter" min="1" max="15" step="1" />
+				</label>
+				<button type="button" id="reset-appearance">Reset appearance</button>
+			</fieldset>
+		</form>
+	</body>
+</html>
