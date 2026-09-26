@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "Twitch Live Captions",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Realtime English captions for any Twitch stream, powered by on-device speech recognition or Deepgram.",
 	"minimum_chrome_version": "124",
 	"icons": {
@@ -26,20 +26,33 @@
 		"service_worker": "background.js",
 		"type": "module"
 	},
-	"permissions": ["offscreen", "storage"],
+	"permissions": [
+		"offscreen",
+		"storage"
+	],
 	"content_scripts": [
 		{
-			"matches": ["https://*.twitch.tv/*"],
-			"js": ["content.js"],
-			"css": ["content.css"],
+			"matches": [
+				"https://*.twitch.tv/*"
+			],
+			"js": [
+				"content.js"
+			],
+			"css": [
+				"content.css"
+			],
 			"all_frames": true,
 			"run_at": "document_idle"
 		}
 	],
 	"web_accessible_resources": [
 		{
-			"resources": ["audio-worklet.js"],
-			"matches": ["https://*.twitch.tv/*"]
+			"resources": [
+				"audio-worklet.js"
+			],
+			"matches": [
+				"https://*.twitch.tv/*"
+			]
 		}
 	],
 	"content_security_policy": {

@@ -1,6 +1,6 @@
 {
 	"name": "twitch-cc",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Realtime English captions for any Twitch stream, powered by on-device speech recognition or Deepgram.",
 	"license": "MIT",
 	"author": "mja00 <me@mja00.dev>",
